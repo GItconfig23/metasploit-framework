@@ -1,0 +1,30 @@
+use auxiliary/scanner/postgres/postgres_login
+Stopping all jobs...
+[4mmsf6[0m auxiliary([1m[31madmin/postgres/postgres_readfile[0m) [0m> irb -e '(self.respond_to?(:framework) ? framework : self).datastore.user_defined.clear'
+[*] New in Metasploit 6.4 - The CreateSession option within this module can open an interactive session
+[4mmsf6[0m auxiliary([1m[31mscanner/postgres/postgres_login[0m) [0m> run PASS_FILE= USER_FILE= CreateSession=true username=postgres password=password rhost=127.0.0.1 rport=5432
+[4mmsf6[0m auxiliary([1m[31mscanner/postgres/postgres_login[0m) [0m> [!] No active DB -- Credential data will not be saved!
+[+] 127.0.0.1:5432 - Login Successful: postgres:password@template1
+[*] PostgreSQL session 4 opened (127.0.0.1:33429 -> 127.0.0.1:5432) at 2024-03-28 12:32:20 +0000
+use post/test/postgres
+[-] 127.0.0.1:5432 - LOGIN FAILED: admin:admin@template1 (Incorrect: FATAL	VFATAL	C28P01	Mpassword authentication failed for user "admin"	Fauth.c	L323	Rauth_failed)
+[-] 127.0.0.1:5432 - LOGIN FAILED: admin:password@template1 (Incorrect: FATAL	VFATAL	C28P01	Mpassword authentication failed for user "admin"	Fauth.c	L323	Rauth_failed)
+[*] Scanned 1 of 1 hosts (100% complete)
+[*] Bruteforce completed, 1 credential was successful.
+[*] 1 Postgres session was opened successfully.
+[*] Auxiliary module execution completed
+[4mmsf6[0m auxiliary([1m[31mscanner/postgres/postgres_login[0m) [0m> run session=4 Verbose=true
+[4mmsf6[0m post([1m[31mtest/postgres[0m) [0m> [!] SESSION may not be compatible with this module:
+[!]  * Unknown session platform. This module works with: Apple_iOS, Hardware, Multi, Mainframe, Firefox, NodeJS, Python, JavaScript, PHP, Unix, Irix, HPUX, AIX, FreeBSD, NetBSD, BSDi, OpenBSD, BSD, OSX, Solaris, Arista, Mikrotik, Brocade, Unifi, Juniper, Cisco, Linux, Ruby, R, Java, Android, Netware, Windows, Unknown.
+[*] Running against session 4
+[*] Session type is postgresql and platform is 
+[+] should support the help command
+[+] should return a version
+[*] Testing complete in 0.03 seconds
+[*] Passed: 2; Failed: 0; Skipped: 0
+[*] Post module execution completed
+sessions -K
+[4mmsf6[0m post([1m[31mtest/postgres[0m) [0m> jobs -K
+[*] Killing all sessions...
+[*] 127.0.0.1 - PostgreSQL session 4 closed.
+[4mmsf6[0m post([1m[31mtest/postgres[0m) [0m> 
